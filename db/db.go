@@ -18,9 +18,7 @@ func GetSchool(id int) (*string, error) {
 }
 
 func AddSchool(name string) int {
-	fmt.Printf("before len=%d cap=%d addr=%p\n", len(schoolDB), cap(schoolDB), schoolDB)
 	schoolDB = append(schoolDB, name)
-	fmt.Printf("after len=%d cap=%d addr=%p\n", len(schoolDB), cap(schoolDB), schoolDB)
 	return len(schoolDB) - 1
 }
 

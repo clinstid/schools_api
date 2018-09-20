@@ -15,5 +15,7 @@ func SetupRouter() *gin.Engine {
 	r.GET("/schools/:schoolID", handlers.GetSchool)
 	r.PUT("/schools/:schoolID", handlers.UpdateSchool)
 
+	r.Static("/docs/", "./dist/")
+
 	return r
 }

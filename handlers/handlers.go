@@ -9,6 +9,10 @@ import (
 	"gitlab.com/clinstid/schools_api/resources"
 )
 
+func buildErrorResponse(message string) gin.H {
+	return gin.H{"message": message}
+}
+
 func ListSchools(c *gin.Context) {
 	schoolList := db.GetSchools()
 
@@ -26,7 +30,7 @@ func AddSchool(c *gin.Context) {
 	var school resources.School
 	err := c.ShouldBindJSON(&school)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		c.JSON(http.StatusBadRequest, buildErrorResponse(err.Error()))
 	}
 
 	schoolID := db.AddSchool(school.Name)
@@ -36,13 +40,13 @@ func AddSchool(c *gin.Context) {
 func GetSchool(c *gin.Context) {
 	schoolID, err := strconv.Atoi(c.Param("schoolID"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, err.Error())
+		c.JSON(http.StatusBadRequest, buildErrorResponse(err.Error()))
 		return
 	}
 
 	schoolName, err := db.GetSchool(schoolID)
 	if err != nil {
-		c.JSON(http.StatusNotFound, err.Error())
+		c.JSON(http.StatusNotFound, buildErrorResponse(err.Error()))
 		return
 	}
 
@@ -53,18 +57,18 @@ func GetSchool(c *gin.Context) {
 func UpdateSchool(c *gin.Context) {
 	schoolID, err := strconv.Atoi(c.Param("schoolID"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		c.JSON(http.StatusBadRequest, buildErrorResponse(err.Error()))
 	}
 
 	var school resources.School
 	err = c.ShouldBindJSON(&school)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		c.JSON(http.StatusBadRequest, buildErrorResponse(err.Error()))
 	}
 
 	_, err = db.UpdateSchool(schoolID, school.Name)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"message": err.Error()})
+		c.JSON(http.StatusNotFound, buildErrorResponse(err.Error()))
 		return
 	}
 

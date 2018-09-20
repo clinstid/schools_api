@@ -99,16 +99,16 @@ paths:
                 properties:
                   schools:
                     $ref: '#/components/schemas/Schools'
-                  total_count:
-                    description: The total number of schools.
-                    type: integer
-                    format: int32
-                  next:
-                    description: A URL that links to the next page of results.
-                    type: string
-                  prev:
-                    description: A URL that links to the previous page of results.
-                    type: string
+                  # total_count:
+                    # description: The total number of schools.
+                    # type: integer
+                    # format: int32
+                  # next:
+                    # description: A URL that links to the next page of results.
+                    # type: string
+                  # prev:
+                    # description: A URL that links to the previous page of results.
+                    # type: string
         '400':
           description: Bad request or invalid parameter.
         '500':

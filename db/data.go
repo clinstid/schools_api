@@ -1,5 +1,6 @@
 package db
 
+// Mock database of a list of schools
 var schoolDB = []string{
 	"Alabama A & M University",
 	"University of Alabama at Birmingham",

@@ -4,8 +4,17 @@ import (
 	"fmt"
 )
 
-func GetSchools() []string {
-	return schoolDB
+type SchoolsResult struct {
+	Schools []string
+	Total   int
+}
+
+func GetSchools(limit, offset int) SchoolsResult {
+	result := SchoolsResult{Total: len(schoolDB)}
+	if offset < len(schoolDB)-1 {
+		result.Schools = schoolDB[offset : offset+limit]
+	}
+	return result
 }
 
 func GetSchool(id int) (*string, error) {

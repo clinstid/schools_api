@@ -7,7 +7,17 @@ type School struct {
 
 type Schools struct {
 	Schools []School `json:"schools"`
-	// TotalCount int      `json:"total_count"`
-	// Next       string   `json:"next"`
-	// Prev       string   `json:"prev"`
+	Meta    Meta     `json:"meta"`
+	Links   Links    `json:"links"`
+}
+
+type Meta struct {
+	Total int `json:"total"`
+}
+
+type Links struct {
+	First string `json:"first,omitempty"`
+	Last  string `json:"last,omitempty"`
+	Next  string `json:"next,omitempty"`
+	Prev  string `json:"prev,omitempty"`
 }

@@ -18,6 +18,8 @@ components:
         type: integer
         format: int32
         default: 100
+        min: 1
+        max: 100
     OffsetParam:
       name: offset
       in: query
@@ -27,6 +29,7 @@ components:
         type: integer
         format: int32
         default: 0
+        min: 0
 
   schemas:
     Schools:
@@ -99,16 +102,28 @@ paths:
                 properties:
                   schools:
                     $ref: '#/components/schemas/Schools'
-                  # total_count:
-                    # description: The total number of schools.
-                    # type: integer
-                    # format: int32
-                  # next:
-                    # description: A URL that links to the next page of results.
-                    # type: string
-                  # prev:
-                    # description: A URL that links to the previous page of results.
-                    # type: string
+                  meta:
+                    type: object
+                    properties:
+                      total:
+                        description: The total number of schools.
+                        type: integer
+                        format: int32
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        description: A URL that links to the first page of results.
+                        type: string
+                      last:
+                        description: A URL that links to the last page of results.
+                        type: string
+                      next:
+                        description: A URL that links to the next page of results.
+                        type: string
+                      prev:
+                        description: A URL that links to the previous page of results.
+                        type: string
         '400':
           description: Bad request or invalid parameter.
         '500':

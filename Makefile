@@ -13,7 +13,7 @@ vendor:
 
 build:
 	docker-compose run --rm gobuilder go build -o $(BINARY)
-	docker-compose run --rm gobuilder chown -R $(USERID):$(GROUPID) $(BINARY)
+	docker-compose run --rm gobuilder chown -R $(USERID):$(GROUPID) bin
 
 run: build
 	docker-compose up schoolsapi
@@ -23,3 +23,4 @@ down:
 
 test:
 	docker-compose run --rm tester
+	docker-compose run --rm tester chown -R $(USERID):$(GROUPID) .

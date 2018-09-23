@@ -29,9 +29,9 @@ services:
       context: .
     volumes:
       - ./:/go/src/gitlab.com/clinstid/schools_api
-    working_dir: /go/src/gitlab.com/clinstid/schools_api
+    working_dir: /go/src/gitlab.com/clinstid/schools_api/tests
     environment:
       BASE_URL: "http://schoolsapi:8080"
     depends_on:
       - schoolsapi
-    command: pytest -v tests
+    command: pytest -v

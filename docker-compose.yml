@@ -1,0 +1,24 @@
+version: '3'
+services:
+  govendor:
+    build:
+      dockerfile: docker/Dockerfile.vendor
+      context: .
+    volumes:
+      - ./:/go/src/gitlab.com/clinstid/schools_api
+    working_dir: /go/src/gitlab.com/clinstid/schools_api
+
+  gobuilder:
+    image: golang:1.11-alpine3.7
+    volumes:
+      - ./:/go/src/gitlab.com/clinstid/schools_api
+    working_dir: /go/src/gitlab.com/clinstid/schools_api
+
+  schoolsapi:
+    image: alpine:3.7
+    volumes:
+      - ./:/go/src/gitlab.com/clinstid/schools_api
+    working_dir: /go/src/gitlab.com/clinstid/schools_api
+    ports:
+      - "8080:8080"
+    command: bin/schools_api

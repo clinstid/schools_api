@@ -29,7 +29,7 @@ var (
 	limitNotNumberErrMsg    = "limit query parameter must be a number"
 	limitOutOfBoundsErrMsg  = fmt.Sprintf("limit query parameter must be at least %d and no greater than %d", minLimit, maxLimit)
 	offsetNotNumberErrMsg   = "offset query parameter must be a number"
-	offsetOutOfBoundsErrMsg = fmt.Sprintf("limit query parameter must be at least %d", minOffSet)
+	offsetOutOfBoundsErrMsg = fmt.Sprintf("offset query parameter must be at least %d", minOffSet)
 )
 
 // buildErrorResponse returns a gin.H struct with a message property that will

@@ -5,7 +5,7 @@ GROUPID=$(shell id -g)
 
 .PHONY: all vendor build run
 
-all: vendor build
+all: vendor build test
 
 vendor:
 	docker-compose run --rm govendor dep ensure

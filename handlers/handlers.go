@@ -152,7 +152,7 @@ func ListSchools(c *gin.Context) {
 	}
 
 	var prevLink string
-	if offset-limit > 0 {
+	if offset-limit >= 0 {
 		prevOffset := offset - limit
 		if prevOffset < 0 {
 			prevOffset = 0

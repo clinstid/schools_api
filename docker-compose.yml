@@ -22,3 +22,16 @@ services:
     ports:
       - "8080:8080"
     command: bin/schools_api
+
+  tester:
+    build:
+      dockerfile: docker/Dockerfile.tester
+      context: .
+    volumes:
+      - ./:/go/src/gitlab.com/clinstid/schools_api
+    working_dir: /go/src/gitlab.com/clinstid/schools_api
+    environment:
+      BASE_URL: "http://schoolsapi:8080"
+    depends_on:
+      - schoolsapi
+    command: pytest -v tests

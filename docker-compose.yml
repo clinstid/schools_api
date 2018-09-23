@@ -5,20 +5,20 @@ services:
       dockerfile: docker/Dockerfile.vendor
       context: .
     volumes:
-      - ./:/go/src/gitlab.com/clinstid/schools_api
-    working_dir: /go/src/gitlab.com/clinstid/schools_api
+      - ./:/go/src/github.com/clinstid/schools_api
+    working_dir: /go/src/github.com/clinstid/schools_api
 
   gobuilder:
     image: golang:1.11-alpine3.7
     volumes:
-      - ./:/go/src/gitlab.com/clinstid/schools_api
-    working_dir: /go/src/gitlab.com/clinstid/schools_api
+      - ./:/go/src/github.com/clinstid/schools_api
+    working_dir: /go/src/github.com/clinstid/schools_api
 
   schoolsapi:
     image: alpine:3.7
     volumes:
-      - ./:/go/src/gitlab.com/clinstid/schools_api
-    working_dir: /go/src/gitlab.com/clinstid/schools_api
+      - ./:/go/src/github.com/clinstid/schools_api
+    working_dir: /go/src/github.com/clinstid/schools_api
     ports:
       - "8080:8080"
     command: bin/schools_api
@@ -28,8 +28,8 @@ services:
       dockerfile: docker/Dockerfile.tester
       context: .
     volumes:
-      - ./:/go/src/gitlab.com/clinstid/schools_api
-    working_dir: /go/src/gitlab.com/clinstid/schools_api/tests
+      - ./:/go/src/github.com/clinstid/schools_api
+    working_dir: /go/src/github.com/clinstid/schools_api/tests
     environment:
       BASE_URL: "http://schoolsapi:8080"
     depends_on:

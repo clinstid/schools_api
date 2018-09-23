@@ -7,9 +7,9 @@ import (
 	"net/url"
 	"strconv"
 
+	"github.com/clinstid/schools_api/db"
+	"github.com/clinstid/schools_api/resources"
 	"github.com/gin-gonic/gin"
-	"gitlab.com/clinstid/schools_api/db"
-	"gitlab.com/clinstid/schools_api/resources"
 )
 
 const (

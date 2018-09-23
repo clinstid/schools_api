@@ -3,7 +3,7 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 
-	"gitlab.com/clinstid/schools_api/handlers"
+	"github.com/clinstid/schools_api/handlers"
 )
 
 // SetupRouter adds routes to a gin HTTP server

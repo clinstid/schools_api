@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gitlab.com/clinstid/schools_api/routes"
+	"github.com/clinstid/schools_api/routes"
 )
 
 var db = make(map[string]string)

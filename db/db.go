@@ -15,8 +15,12 @@ type SchoolsResult struct {
 // GetSchools returns a SchoolsResult struct based on the specified offset and
 // limit into the slice of schools in the database.
 func GetSchools(limit, offset int) SchoolsResult {
-	result := SchoolsResult{Total: len(schoolDB)}
+	total := len(schoolDB)
+	result := SchoolsResult{Total: total}
 	if offset < len(schoolDB)-1 {
+		if offset+limit > total {
+			limit = total - offset
+		}
 		result.Schools = schoolDB[offset : offset+limit]
 	}
 	return result

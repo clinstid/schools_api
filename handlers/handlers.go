@@ -144,7 +144,7 @@ func ListSchools(c *gin.Context) {
 
 	total := sResult.Total
 	pageCount := total / limit
-	lastLink := buildListSchoolsLink(c.Request, limit*(pageCount-1), limit)
+	lastLink := buildListSchoolsLink(c.Request, limit*pageCount, limit)
 
 	var nextLink string
 	if offset+limit < total {
@@ -152,10 +152,12 @@ func ListSchools(c *gin.Context) {
 	}
 
 	var prevLink string
-	if offset > 0 && (offset < total-1) {
+	if offset-limit > 0 {
 		prevOffset := offset - limit
 		if prevOffset < 0 {
 			prevOffset = 0
+		} else if prevOffset > total {
+			prevOffset = limit * pageCount
 		}
 		prevLink = buildListSchoolsLink(c.Request, prevOffset, limit)
 	}

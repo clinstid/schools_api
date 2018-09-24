@@ -30,6 +30,7 @@ var (
 	limitOutOfBoundsErrMsg  = fmt.Sprintf("limit query parameter must be at least %d and no greater than %d", minLimit, maxLimit)
 	offsetNotNumberErrMsg   = "offset query parameter must be a number"
 	offsetOutOfBoundsErrMsg = fmt.Sprintf("offset query parameter must be at least %d", minOffSet)
+	schoolIdNotNumberErrMsg = "school id must be a number"
 )
 
 // buildErrorResponse returns a gin.H struct with a message property that will
@@ -53,6 +54,28 @@ func buildBindErrorResponse(err error) gin.H {
 	default:
 		return buildErrorResponse(err.Error())
 	}
+
+}
+
+// buildSchoolLink returns a URL for the current school
+func buildSchoolLink(r *http.Request, schoolID int) string {
+	var scheme string
+	if r.TLS == nil {
+		scheme = "http"
+	} else {
+		scheme = "https"
+	}
+
+	host := r.Host
+	path := fmt.Sprintf("%s/%d", r.URL.Path, schoolID)
+
+	link := &url.URL{
+		Scheme: scheme,
+		Host:   host,
+		Path:   path,
+	}
+
+	return link.String()
 
 }
 
@@ -198,7 +221,8 @@ func AddSchool(c *gin.Context) {
 	}
 
 	schoolID := db.AddSchool(school.Name)
-	c.JSON(http.StatusOK, resources.School{ID: schoolID, Name: school.Name})
+	c.Header("Location", buildSchoolLink(c.Request, schoolID))
+	c.JSON(http.StatusCreated, resources.School{ID: schoolID, Name: school.Name})
 }
 
 // GetSchool retrieves a single school with the specified id.
@@ -206,7 +230,7 @@ func GetSchool(c *gin.Context) {
 	// Get the id from the path
 	schoolID, err := strconv.Atoi(c.Param("schoolID"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, buildErrorResponse("school id must be a number"))
+		c.JSON(http.StatusBadRequest, buildErrorResponse(schoolIdNotNumberErrMsg))
 		return
 	}
 
@@ -230,7 +254,7 @@ func UpdateSchool(c *gin.Context) {
 	// Get the id from the path
 	schoolID, err := strconv.Atoi(c.Param("schoolID"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, buildErrorResponse(err.Error()))
+		c.JSON(http.StatusBadRequest, buildErrorResponse(schoolIdNotNumberErrMsg))
 		return
 	}
 

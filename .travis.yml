@@ -8,4 +8,4 @@ language: go
 go:
   - "1.11.x"
 
-script: make build
+script: make all

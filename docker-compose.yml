@@ -9,7 +9,7 @@ services:
     working_dir: /go/src/github.com/clinstid/schools_api
 
   gobuilder:
-    image: golang:1.11-alpine3.7
+    image: golang:1.10-alpine3.7
     volumes:
       - ./:/go/src/github.com/clinstid/schools_api
     working_dir: /go/src/github.com/clinstid/schools_api

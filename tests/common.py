@@ -44,6 +44,17 @@ class TestSchoolsAPI:
     BASE_URL = os.environ.get('BASE_URL', 'http://localhost:8080')
     SCHOOLS_PATH = f'{BASE_URL}/schools'
 
+    def build_school_path(self, school_id):
+        """Build a path to a specific school resource
+
+        params:
+            school_id: The id of the school resource
+
+        returns:
+            The path to that specified school resource
+        """
+        return f'{self.SCHOOLS_PATH}/{school_id}'
+
     def list_schools(self, offset=0, limit=100):
         """Make a request to the ListSchools operation
 
@@ -75,5 +86,56 @@ class TestSchoolsAPI:
         response = requests.get(
             url=self.SCHOOLS_PATH,
             params=params,
+        )
+        return response
+
+    def get_school(self, school_id):
+        """Make a request to the GetSchool operation
+
+        params:
+            school_id: The id of the school to retrieve
+
+        returns:
+            A requests.Response object
+        """
+        response = requests.get(
+            url=self.build_school_path(school_id)
+        )
+        return response
+
+    def update_school(self, school_id, name):
+        """Make a request to the UpdateSchool operation
+
+        params:
+            school_id: The id of the school to update
+            name: The new name of the school
+
+        returns:
+            A requests.Response object
+        """
+        response = requests.put(
+            url=self.build_school_path(school_id),
+            json={
+                'id': school_id,
+                'name': name,
+            }
+        )
+        return response
+
+    def add_school(self, name):
+        """Make a request to the AddSchool operation
+
+        params:
+            school_id: The id of the school to update
+            name: The new name of the school
+
+        returns:
+            A requests.Response object
+        """
+        response = requests.post(
+            url=self.SCHOOLS_PATH,
+            json={
+                'name': name,
+            }
         )
         return response

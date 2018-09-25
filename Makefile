@@ -25,6 +25,13 @@ test:
 	docker-compose run --rm tester
 	docker-compose run --rm tester chown -R $(USERID):$(GROUPID) .
 
+image:
+	docker build -t schoolsapi:latest .
+
+push:
+	docker tag schoolsapi:latest clinstid/schoolsapi:latest
+	docker push clinstid/schoolsapi:latest
+
 clean: down
 	docker-compose run --rm tester \
 	    find . \
